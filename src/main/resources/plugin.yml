@@ -1,0 +1,17 @@
+name: TokensPlugin
+version: ${project.version}
+main: me.xmantic.tokens.TokensPlugin
+api-version: 1.13
+prefix: Tokens
+load: POSTWORLD
+authors: [xMantic]
+description: This plugin is a TokensPlugin Economey plugin
+commands:
+  mtoken:
+    description: Opens the upgrade GUI
+    usage: /<command>
+    aliases: [mtokens]
+  mtokenpay:
+    description: Opens the upgrade GUI
+    usage: /<command>
+    aliases: [mtokens]

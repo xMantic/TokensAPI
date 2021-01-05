@@ -1,0 +1,5 @@
+#This is the amount of time between the PlayerData being backed up (in minutes). The lower you set it the more lag.
+Save Timer: 1
+
+#This is the default Tokens Balance
+Default Balance: 0
