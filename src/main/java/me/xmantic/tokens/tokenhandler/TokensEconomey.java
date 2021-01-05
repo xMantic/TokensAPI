@@ -1,23 +1,20 @@
 package me.xmantic.tokens.tokenhandler;
 
-import me.xmantic.tokens.TokensPlugin;
+import me.xmantic.tokens.TokensAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class TokenEconomey implements Tokens {
+public class TokensEconomey implements Tokens {
 
-    private TokensPlugin plugin;
+    private TokensAPI plugin;
 
-    public TokenEconomey(TokensPlugin plugin) {
+    public TokensEconomey(TokensAPI plugin) {
         this.plugin = plugin;
     }
 
-    /**
-     * Gets the Token Balance of a player
-     */
     @Override
     public int tokenBalance(UUID playerUUID) {
         return plugin.tokenBalance.get(playerUUID);
@@ -41,11 +38,6 @@ public class TokenEconomey implements Tokens {
         return plugin.tokenBalance.get(Bukkit.getOfflinePlayer(playerName).getUniqueId());
     }
 
-
-    /**
-     * Checks to make sure the input is a valid number that is not
-     * a decimal, is not negative, and doesn't contain a comma
-     */
     @Override
     public boolean validInputCheck(int inputValue) {
         String string = "" + inputValue;
@@ -69,12 +61,6 @@ public class TokenEconomey implements Tokens {
         }
     }
 
-
-    /**
-     * This section is used in order to make sure that a player
-     * has more tokens in their balance than they are trying
-     * to send
-     */
     @Override
     public boolean hasEnoughBalance(int attemptingToSend, UUID playerUUID) {
 
@@ -123,10 +109,6 @@ public class TokenEconomey implements Tokens {
         return true;
     }
 
-
-    /**
-     * Used to pay tokens from one person to another person
-     */
     @Override
     public void payTokens(UUID sender, UUID target, int amount) {
         int updatedSenderBalance = tokenBalance(sender) - amount;
@@ -164,10 +146,6 @@ public class TokenEconomey implements Tokens {
         plugin.tokenBalance.put(targetUUID, updatedTargetBalance);
     }
 
-
-    /**
-     * Used to reset the TokensPlugin balance of a single player
-     */
     @Override
     public void resetPlayerTokens(UUID playerUUID) {
         plugin.tokenBalance.put(playerUUID, plugin.getConfig().getInt("Default Balance"));
@@ -192,10 +170,6 @@ public class TokenEconomey implements Tokens {
         plugin.tokenBalance.put(uuid, plugin.getConfig().getInt("Default Balance"));
     }
 
-
-    /**
-     * Used to clear the TokensPlugin Balances of ALL players on the network
-     */
     @Override
     public void clearAllTokenBalances() {
         for (UUID uuid : plugin.tokenBalance.keySet()) {
@@ -203,10 +177,6 @@ public class TokenEconomey implements Tokens {
         }
     }
 
-
-    /**
-     * Used to give tokens to other players
-     */
     @Override
     public void giveTokens(UUID target, int amount) {
         int updatedBalance = tokenBalance(target) + amount;
@@ -236,9 +206,6 @@ public class TokenEconomey implements Tokens {
     }
 
 
-    /**
-     * Used to remove tokens from another player
-     */
     @Override
     public void removeTokens(UUID target, int amount) {
         int updatedBalance = tokenBalance(target) - amount;
@@ -267,12 +234,6 @@ public class TokenEconomey implements Tokens {
         plugin.tokenBalance.put(uuid, updatedBalance);
     }
 
-
-    /**
-     * This is used to set a players Tokens Balance
-     * to whatever you want it to be as easily as
-     * possible.
-     */
     @Override
     public void setTokens(UUID target, int amount){
         plugin.tokenBalance.put(target, amount);

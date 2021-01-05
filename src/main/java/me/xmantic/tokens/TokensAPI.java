@@ -1,7 +1,6 @@
 package me.xmantic.tokens;
 
 import me.xmantic.tokens.listeners.LoginListeners;
-import me.xmantic.tokens.tokenhandler.TokenEconomey;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -15,16 +14,11 @@ import java.util.HashMap;
 import java.util.UUID;
 
 
-public final class TokensPlugin extends JavaPlugin {
+public final class TokensAPI extends JavaPlugin {
 
     public HashMap<UUID, Integer> tokenBalance;
     private LoginListeners loginListeners;
     private HashMap<UUID, Integer> changeCheck;
-    private TokenEconomey tokenEconomey;
-
-    public TokenEconomey getTokenEconomey() {
-        return tokenEconomey;
-    }
 
     @Override
     public void onEnable() {
@@ -34,7 +28,6 @@ public final class TokensPlugin extends JavaPlugin {
         this.loginListeners = new LoginListeners(this);
         this.tokenBalance = new HashMap<>();
         this.changeCheck = new HashMap<>();
-        this.tokenEconomey = new TokenEconomey(this);
         this.getServer().getPluginManager().registerEvents(new LoginListeners(this), this);
 
         for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
@@ -116,6 +109,4 @@ public final class TokensPlugin extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
-
 }

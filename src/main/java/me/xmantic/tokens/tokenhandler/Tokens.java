@@ -1,6 +1,5 @@
 package me.xmantic.tokens.tokenhandler;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -69,7 +68,7 @@ public interface Tokens {
 
 
     /**
-     * Used to reset the TokensPlugin balance of a single player
+     * Used to reset the TokensAPI balance of a single player
      */
     void resetPlayerTokens(UUID playerUUID);
 
@@ -84,7 +83,7 @@ public interface Tokens {
 
 
     /**
-     * Used to clear the TokensPlugin Balances of ALL players on the network
+     * Used to clear the TokensAPI Balances of ALL players on the network
      */
     void clearAllTokenBalances();
 

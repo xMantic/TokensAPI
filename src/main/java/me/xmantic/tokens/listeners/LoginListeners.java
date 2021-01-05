@@ -1,7 +1,6 @@
 package me.xmantic.tokens.listeners;
 
-import me.xmantic.tokens.TokensPlugin;
-import me.xmantic.tokens.tokenhandler.TokenEconomey;
+import me.xmantic.tokens.TokensAPI;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -16,14 +15,13 @@ import java.util.UUID;
 
 public class LoginListeners implements Listener {
 
-    private TokensPlugin plugin;
-    public LoginListeners(TokensPlugin plugin) {
+    private TokensAPI plugin;
+    public LoginListeners(TokensAPI plugin) {
         this.plugin = plugin;
     }
 
-    //------File loading method------
     public FileConfiguration playerData;
-    public File serverFolder;
+    private File serverFolder;
     public File playerFile;
     public void loadConfig(UUID uuid){
         serverFolder = new File(plugin.getDataFolder(), File.separator + "PlayerData");
@@ -31,7 +29,6 @@ public class LoginListeners implements Listener {
         playerData = YamlConfiguration.loadConfiguration(playerFile);
     }
 
-    //------Checks to see if player needs a file made------
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onLogin(PlayerLoginEvent event) {
 
