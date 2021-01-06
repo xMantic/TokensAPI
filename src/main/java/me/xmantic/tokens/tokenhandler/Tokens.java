@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public interface Tokens {
-
     /**
      * Gets the Token Balance of a player
      */

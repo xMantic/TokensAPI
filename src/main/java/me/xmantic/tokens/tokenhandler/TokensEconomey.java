@@ -10,7 +10,6 @@ import java.util.UUID;
 public class TokensEconomey implements Tokens {
 
     private TokensAPI plugin;
-
     public TokensEconomey(TokensAPI plugin) {
         this.plugin = plugin;
     }
@@ -144,7 +143,7 @@ public class TokensEconomey implements Tokens {
 
     @Override
     @Deprecated
-    public void resetPlayerTokens(String playerName){
+    public void resetPlayerTokens(String playerName) {
         UUID uuid = Bukkit.getOfflinePlayer(playerName).getUniqueId();
         resetPlayerTokens(uuid);
     }
@@ -177,7 +176,7 @@ public class TokensEconomey implements Tokens {
 
     @Override
     @Deprecated
-    public void giveTokens(String target, int amount){
+    public void giveTokens(String target, int amount) {
         UUID uuid = Bukkit.getOfflinePlayer(target).getUniqueId();
         giveTokens(uuid, amount);
     }
@@ -203,32 +202,32 @@ public class TokensEconomey implements Tokens {
 
     @Override
     @Deprecated
-    public void removeTokens(String target, int amount){
+    public void removeTokens(String target, int amount) {
         UUID uuid = Bukkit.getOfflinePlayer(target).getUniqueId();
         removeTokens(uuid, amount);
 
     }
 
     @Override
-    public void setTokens(UUID target, int amount){
+    public void setTokens(UUID target, int amount) {
         plugin.tokenBalance.put(target, amount);
     }
 
     @Override
     @Deprecated
-    public void setTokens(Player target, int amount){
+    public void setTokens(Player target, int amount) {
         setTokens(target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
-    public void setTokens(OfflinePlayer target, int amount){
+    public void setTokens(OfflinePlayer target, int amount) {
         setTokens(target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
-    public void setTokens(String target, int amount){
+    public void setTokens(String target, int amount) {
         setTokens(Bukkit.getOfflinePlayer(target).getUniqueId(), amount);
     }
 }

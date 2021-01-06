@@ -18,7 +18,6 @@ import java.util.UUID;
 public class LoginListeners implements Listener {
 
     private TokensAPI plugin;
-
     public LoginListeners(TokensAPI plugin) {
         this.plugin = plugin;
     }
