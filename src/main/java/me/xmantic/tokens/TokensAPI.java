@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
-
 public final class TokensAPI extends JavaPlugin {
 
     public HashMap<UUID, Integer> tokenBalance;
@@ -45,9 +44,7 @@ public final class TokensAPI extends JavaPlugin {
                     exception.printStackTrace();
                 }
             }
-
         }, 0, this.getConfig().getInt("Save Timer") * 1200);
-
     }
 
     @Override
