@@ -50,7 +50,7 @@ public final class Example extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        this.tokens = new TokensEconomey(TokensEco.getPlugin(TokensAPI.class));
+        this.tokens = new TokensEconomey(TokensAPI.getPlugin(TokensAPI.class));
         this.getServer().getPluginManager().registerEvents(this,this);
     }
 
