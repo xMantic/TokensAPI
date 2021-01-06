@@ -45,6 +45,8 @@ public class LoginListeners implements Listener {
             playerData.createSection("tokens");
             playerData.set("tokens.balance", plugin.getConfig().getInt("Default Balance"));
             playerData.save(playerFile);
+            plugin.tokenBalance.put(player.getUniqueId(), 0);
+            plugin.changeCheck.put(player.getUniqueId(), 0);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
