@@ -6,12 +6,3 @@ prefix: TokensAPI
 load: STARTUP
 authors: [xMantic]
 description: This plugin is a TokensAPI Economey plugin
-commands:
-  mtoken:
-    description: Opens the upgrade GUI
-    usage: /<command>
-    aliases: [mtokens]
-  mtokenpay:
-    description: Opens the upgrade GUI
-    usage: /<command>
-    aliases: [mtokens]
