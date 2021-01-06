@@ -14,9 +14,10 @@ If you would like to make a plugin using this Tokens API here are the following 
                 C:/Users/xMantic/Desktop/JarFiles/TokensAPI-1.0.jar
             </systemPath>
         </dependency>
-        ```
+```
         
 2. In your Main class for the plugin that you are making make sure to include the following
+
 ```
     private Tokens tokens;
 
@@ -27,7 +28,7 @@ If you would like to make a plugin using this Tokens API here are the following 
         Anything else in your onEnable
         */
     }
-    ```
+```
 3. If you want to call any of the methods just use tokens.<method>()
 
 Example plugin (In one class so I dont have to paste as much)
