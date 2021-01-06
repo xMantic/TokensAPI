@@ -23,19 +23,19 @@ public class TokensEconomey implements Tokens {
     @Override
     @Deprecated
     public int tokenBalance(Player player) {
-        return plugin.tokenBalance.get(player.getUniqueId());
+        return tokenBalance(player.getUniqueId());
     }
 
     @Override
     @Deprecated
     public int tokenBalance(OfflinePlayer offlinePlayer) {
-        return plugin.tokenBalance.get(offlinePlayer.getUniqueId());
+        return tokenBalance(offlinePlayer.getUniqueId());
     }
 
     @Override
     @Deprecated
     public int tokenBalance(String playerName) {
-        return plugin.tokenBalance.get(Bukkit.getOfflinePlayer(playerName).getUniqueId());
+        return tokenBalance(Bukkit.getOfflinePlayer(playerName).getUniqueId());
     }
 
     @Override
@@ -73,31 +73,19 @@ public class TokensEconomey implements Tokens {
     @Override
     @Deprecated
     public boolean hasEnoughBalance(int attemptingToSend, Player player) {
-
-        if (attemptingToSend > plugin.tokenBalance.get(player.getUniqueId())) {
-            return false;
-        }
-        return true;
+        return hasEnoughBalance(attemptingToSend, player.getUniqueId());
     }
 
     @Override
     @Deprecated
     public boolean hasEnoughBalance(int attemptingToSend, OfflinePlayer offlinePlayer) {
-
-        if (attemptingToSend > plugin.tokenBalance.get(offlinePlayer.getUniqueId())) {
-            return false;
-        }
-        return true;
+        return hasEnoughBalance(attemptingToSend, offlinePlayer.getUniqueId());
     }
 
     @Override
     @Deprecated
     public boolean hasEnoughBalance(int attemptingToSend, String playerName) {
-
-        if (attemptingToSend > plugin.tokenBalance.get(Bukkit.getOfflinePlayer(playerName).getUniqueId())) {
-            return false;
-        }
-        return true;
+        return hasEnoughBalance(attemptingToSend, Bukkit.getOfflinePlayer(playerName).getUniqueId());
     }
 
     @Override
@@ -120,19 +108,13 @@ public class TokensEconomey implements Tokens {
     @Override
     @Deprecated
     public void payTokens(Player sender, Player target, int amount) {
-        int updatedSenderBalance = tokenBalance(sender.getUniqueId()) - amount;
-        int updatedTargetBalance = tokenBalance(target.getUniqueId()) + amount;
-        plugin.tokenBalance.put(sender.getUniqueId(), updatedSenderBalance);
-        plugin.tokenBalance.put(target.getUniqueId(), updatedTargetBalance);
+        payTokens(sender.getUniqueId(), target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
     public void payTokens(OfflinePlayer sender, OfflinePlayer target, int amount) {
-        int updatedSenderBalance = tokenBalance(sender.getUniqueId()) - amount;
-        int updatedTargetBalance = tokenBalance(target.getUniqueId()) + amount;
-        plugin.tokenBalance.put(sender.getUniqueId(), updatedSenderBalance);
-        plugin.tokenBalance.put(target.getUniqueId(), updatedTargetBalance);
+        payTokens(sender.getUniqueId(), target.getUniqueId(), amount);
     }
 
     @Override
@@ -140,10 +122,7 @@ public class TokensEconomey implements Tokens {
     public void payTokens(String sender, String target, int amount) {
         UUID senderUUID = Bukkit.getOfflinePlayer(sender).getUniqueId();
         UUID targetUUID = Bukkit.getOfflinePlayer(target).getUniqueId();
-        int updatedSenderBalance = tokenBalance(senderUUID) - amount;
-        int updatedTargetBalance = tokenBalance(targetUUID) + amount;
-        plugin.tokenBalance.put(senderUUID, updatedSenderBalance);
-        plugin.tokenBalance.put(targetUUID, updatedTargetBalance);
+        payTokens(senderUUID, targetUUID, amount);
     }
 
     @Override
@@ -154,20 +133,20 @@ public class TokensEconomey implements Tokens {
     @Override
     @Deprecated
     public void resetPlayerTokens(Player player) {
-        plugin.tokenBalance.put(player.getUniqueId(), plugin.getConfig().getInt("Default Balance"));
+        resetPlayerTokens(player.getUniqueId());
     }
 
     @Override
     @Deprecated
     public void resetPlayerTokens(OfflinePlayer offlinePlayer) {
-        plugin.tokenBalance.put(offlinePlayer.getUniqueId(), plugin.getConfig().getInt("Default Balance"));
+        resetPlayerTokens(offlinePlayer.getUniqueId());
     }
 
     @Override
     @Deprecated
     public void resetPlayerTokens(String playerName){
         UUID uuid = Bukkit.getOfflinePlayer(playerName).getUniqueId();
-        plugin.tokenBalance.put(uuid, plugin.getConfig().getInt("Default Balance"));
+        resetPlayerTokens(uuid);
     }
 
     @Override
@@ -186,23 +165,21 @@ public class TokensEconomey implements Tokens {
     @Override
     @Deprecated
     public void giveTokens(Player target, int amount) {
-        int updatedBalance = tokenBalance(target.getUniqueId()) + amount;
-        plugin.tokenBalance.put(target.getUniqueId(), updatedBalance);
+        giveTokens(target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
     public void giveTokens(OfflinePlayer target, int amount) {
-        int updatedBalance = tokenBalance(target.getUniqueId()) + amount;
-        plugin.tokenBalance.put(target.getUniqueId(), updatedBalance);
+        giveTokens(target.getUniqueId(), amount);
+
     }
 
     @Override
     @Deprecated
     public void giveTokens(String target, int amount){
         UUID uuid = Bukkit.getOfflinePlayer(target).getUniqueId();
-        int updatedBalance = tokenBalance(uuid) + amount;
-        plugin.tokenBalance.put(uuid, updatedBalance);
+        giveTokens(uuid, amount);
     }
 
 
@@ -215,23 +192,21 @@ public class TokensEconomey implements Tokens {
     @Override
     @Deprecated
     public void removeTokens(Player target, int amount) {
-        int updatedBalance = tokenBalance(target.getUniqueId()) - amount;
-        plugin.tokenBalance.put(target.getUniqueId(), updatedBalance);
+        removeTokens(target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
     public void removeTokens(OfflinePlayer target, int amount) {
-        int updatedBalance = tokenBalance(target.getUniqueId()) - amount;
-        plugin.tokenBalance.put(target.getUniqueId(), updatedBalance);
+        removeTokens(target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
     public void removeTokens(String target, int amount){
         UUID uuid = Bukkit.getOfflinePlayer(target).getUniqueId();
-        int updatedBalance = tokenBalance(uuid) - amount;
-        plugin.tokenBalance.put(uuid, updatedBalance);
+        removeTokens(uuid, amount);
+
     }
 
     @Override
@@ -242,18 +217,18 @@ public class TokensEconomey implements Tokens {
     @Override
     @Deprecated
     public void setTokens(Player target, int amount){
-        plugin.tokenBalance.put(target.getUniqueId(), amount);
+        setTokens(target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
     public void setTokens(OfflinePlayer target, int amount){
-        plugin.tokenBalance.put(target.getUniqueId(), amount);
+        setTokens(target.getUniqueId(), amount);
     }
 
     @Override
     @Deprecated
     public void setTokens(String target, int amount){
-        plugin.tokenBalance.put(Bukkit.getOfflinePlayer(target).getUniqueId(), amount);
+        setTokens(Bukkit.getOfflinePlayer(target).getUniqueId(), amount);
     }
 }

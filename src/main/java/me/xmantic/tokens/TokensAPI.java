@@ -1,6 +1,8 @@
 package me.xmantic.tokens;
 
 import me.xmantic.tokens.listeners.LoginListeners;
+import me.xmantic.tokens.tokenhandler.Tokens;
+import me.xmantic.tokens.tokenhandler.TokensEconomey;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -18,38 +20,19 @@ public final class TokensAPI extends JavaPlugin {
 
     public HashMap<UUID, Integer> tokenBalance;
     private LoginListeners loginListeners;
-    private HashMap<UUID, Integer> changeCheck;
+    public HashMap<UUID, Integer> changeCheck;
 
     @Override
     public void onEnable() {
 
         createFiles();
 
+        this.getServer().getPluginManager().registerEvents(new LoginListeners(this), this);
         this.loginListeners = new LoginListeners(this);
         this.tokenBalance = new HashMap<>();
         this.changeCheck = new HashMap<>();
-        this.getServer().getPluginManager().registerEvents(new LoginListeners(this), this);
-
-        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
-
-            loginListeners.loadConfig(offlinePlayer.getUniqueId());
-
-            if (!(loginListeners.playerFile.exists())) {
-                try {
-                    loginListeners.playerData.createSection("tokens");
-                    loginListeners.playerData.set("tokens.balance", this.getConfig().getInt("Default Balance"));
-                    loginListeners.playerData.save(loginListeners.playerFile);
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                    continue;
-                }
-            }
-            tokenBalance.put(offlinePlayer.getUniqueId(), loginListeners.playerData.getInt("tokens.balance"));
-            changeCheck.put(offlinePlayer.getUniqueId(), loginListeners.playerData.getInt("tokens.balance"));
-        }
 
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
-
             for (UUID uuid : tokenBalance.keySet()) {
 
                 if (tokenBalance.get(uuid).equals(changeCheck.get(uuid))) {

@@ -1,6 +1,8 @@
 package me.xmantic.tokens.listeners;
 
 import me.xmantic.tokens.TokensAPI;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -16,6 +18,7 @@ import java.util.UUID;
 public class LoginListeners implements Listener {
 
     private TokensAPI plugin;
+
     public LoginListeners(TokensAPI plugin) {
         this.plugin = plugin;
     }
@@ -23,7 +26,8 @@ public class LoginListeners implements Listener {
     public FileConfiguration playerData;
     private File serverFolder;
     public File playerFile;
-    public void loadConfig(UUID uuid){
+
+    public void loadConfig(UUID uuid) {
         serverFolder = new File(plugin.getDataFolder(), File.separator + "PlayerData");
         playerFile = new File(serverFolder, File.separator + uuid + ".yml");
         playerData = YamlConfiguration.loadConfiguration(playerFile);
@@ -37,12 +41,38 @@ public class LoginListeners implements Listener {
 
         if (playerFile.exists()) {
             return;
-        } try {
+        }
+        try {
             playerData.createSection("tokens");
             playerData.set("tokens.balance", plugin.getConfig().getInt("Default Balance"));
             playerData.save(playerFile);
         } catch (IOException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    @EventHandler
+    public void on(PlayerLoginEvent event) {
+        if (!(plugin.tokenBalance.isEmpty())) {
+            return;
+        }
+        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
+
+            loadConfig(offlinePlayer.getUniqueId());
+
+            if (!(playerFile.exists())) {
+                try {
+                    playerData.createSection("tokens");
+                    playerData.set("tokens.balance", plugin.getConfig().getInt("Default Balance"));
+                    playerData.save(playerFile);
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                    continue;
+                }
+            }
+
+            plugin.tokenBalance.put(offlinePlayer.getUniqueId(), playerData.getInt("tokens.balance"));
+            plugin.changeCheck.put(offlinePlayer.getUniqueId(), playerData.getInt("tokens.balance"));
         }
     }
 }

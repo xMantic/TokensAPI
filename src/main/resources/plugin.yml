@@ -3,7 +3,7 @@ version: ${project.version}
 main: me.xmantic.tokens.TokensAPI
 api-version: 1.13
 prefix: TokensAPI
-load: POSTWORLD
+load: STARTUP
 authors: [xMantic]
 description: This plugin is a TokensAPI Economey plugin
 commands:
