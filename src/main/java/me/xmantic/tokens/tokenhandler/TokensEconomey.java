@@ -99,8 +99,8 @@ public class TokensEconomey implements Tokens {
     @Override
     public void payTokens(UUID sender, UUID target, int amount) {
         int updatedSenderBalance = tokenBalance(sender) - amount;
-        int updatedTargetBalance = tokenBalance(target) + amount;
         plugin.tokenBalance.put(sender, updatedSenderBalance);
+        int updatedTargetBalance = tokenBalance(target) + amount;
         plugin.tokenBalance.put(target, updatedTargetBalance);
     }
 
